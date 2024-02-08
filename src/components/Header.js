@@ -1,24 +1,36 @@
 import { LOGO_URL } from "../utils/constants";
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import useOnlineStatus from "../utils/useOnlineStatus";
 
 const Header = () => {
-    return (
-      <div className="header">
-        <div className="logo-container">
-          <img
-            className="logo"
-            src = {LOGO_URL}
-          ></img>
-        </div>
-        <div className="nav-items">
-          <ul>
-            <li>Home</li>
-            <li>About</li>
-            <li>Contact Us</li>
-            <li>Cart</li>
-          </ul>
-        </div>
-      </div>
-    );
-  };
+  const [btnName, setbtnName] = useState("Login");
 
-export default Header;  
+  const onlineStatus = useOnlineStatus();
+
+  return (
+    <div className="flex justify-between bg-pink-50 font-[500]">
+      <div className="logo-container">
+        <Link to="/"><img className="w-28 mt-2 mx-6" src={LOGO_URL}></img></Link>
+      </div>
+      <div className="flex items-center">
+        <ul className="flex p-4 m-4">
+          <li className="px-4">Online Status: {onlineStatus ? "🟢" : "🔴"}</li>
+          <li className="px-4"><Link to="/">Home</Link></li>
+          <li className="px-4"><Link to="/about" >About</Link></li>
+          <li className="px-4"><Link to="/contact">Contact</Link></li>
+          <li className="px-4"><Link to="/grocery">Grocery</Link></li>
+          <li className="px-4">Cart</li>
+          <button 
+            className="login px-4"
+            onClick={ () => {
+              btnName==="Login" ? setbtnName("Logout") : setbtnName("Login");
+            }}
+          >{btnName}</button>
+        </ul>
+      </div>
+    </div>
+  );
+};
+
+export default Header;
