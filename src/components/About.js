@@ -1,13 +1,18 @@
+import UserContext from "../utils/UserContext";
 import User from "./User";
 import UserClass from "./UserClass";
 
 const About = () => {
     return (
         <div>
-            <h1>About</h1>
-            <h2>This is the best about page</h2>
+            <h1>About Class Component</h1>
             {/* <User name = {"Srajal Jain(function)"}/> */}
-            <UserClass name = {"Srajal Jain class"} location={"Bhopal class"}/>
+            <div>
+                Logged In User:
+                <UserContext.Consumer>
+                    {({loggedInUser}) => <h1 className="font-bold">{loggedInUser}</h1>}
+                </UserContext.Consumer>
+            </div>
         </div>
     );
 };
