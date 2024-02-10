@@ -30,7 +30,7 @@ const Body = () => {
   const RestaurantCardPromoted = withPromotedLabel(RestaurantCard);
 
   const {loggedInUser, setUserName} = useContext(UserContext);
-
+  const [apidata,setApidata] = useState(null);
   // useEffect() - runs after the first render and after every update
   // useEffect(()=>{}, []); - runs after the first render
   // useEffect(()=>{}, [state]); - runs after the first render and after every update of state
@@ -41,18 +41,23 @@ const Body = () => {
   }, []);
 
   const fetchData = async () => {
-    const data = await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9715987&lng=77.5945627&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING");
-
-    const json = await data.json();
-
-    // optional chaining - ?. - if the value is null or undefined, the expression will return undefined
-    setListOfRestaurants(json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
-    setFilteredRestaurant(json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+    try{
+      const data = await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9715987&lng=77.5945627&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING");
+      const json = await data.json();
+      setApidata(json)
+      // optional chaining - ?. - if the value is null or undefined, the expression will return undefined
+      setListOfRestaurants(json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+      setFilteredRestaurant(json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+    }catch(err){
+      console.log(err);
+    }
+  
   };
 
+ 
   // Conditional rendering
   if (listOfRestaurants.length === 0) {
-    return <Shimmer />;
+    
   }
 
   if (onlineStatus === false) {
@@ -61,8 +66,11 @@ const Body = () => {
     );
   }
 
-  return (
-    <div className="body">
+
+ 
+    {if(!apidata) return <Shimmer />;
+    else return (
+      <div className="body">
       <div className="filter flex">
         <div className="search m-4 p-4">
           <input
@@ -118,7 +126,12 @@ const Body = () => {
         ))}
       </div>
     </div>
-  );
+    ) }
+    
+    
+
+    
+  
 };
 
 export default Body;
