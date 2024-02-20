@@ -17,7 +17,7 @@ const RestaurantCard = ({ resData }) => {
       />
       <h3 className="font-bold py-2 text-lg">{name}</h3>
       <h4>⭐ {avgRating} • {sla.deliveryTime} minutes</h4>
-      <h4>{cuisines.join(", ")}</h4>
+      <h4>{cuisines.length > 3 ? cuisines.join(", ").slice(0, 30) + "..." : cuisines.join(", ").slice(0, 30) }</h4>
       <h4>{costForTwo}</h4>
       {/* <h4>User: {loggedInUser}</h4> */}
     </div>

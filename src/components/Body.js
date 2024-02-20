@@ -31,6 +31,7 @@ const Body = () => {
 
   const {loggedInUser, setUserName} = useContext(UserContext);
   const [apidata,setApidata] = useState(null);
+
   // useEffect() - runs after the first render and after every update
   // useEffect(()=>{}, []); - runs after the first render
   // useEffect(()=>{}, [state]); - runs after the first render and after every update of state
@@ -57,7 +58,7 @@ const Body = () => {
  
   // Conditional rendering
   if (listOfRestaurants.length === 0) {
-    
+    return <Shimmer/>
   }
 
   if (onlineStatus === false) {
