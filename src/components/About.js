@@ -7,7 +7,7 @@ const About = () => {
         <div className="flex flex-col min-h-screen">
         <h1 className="text-4xl font-semibold mb-4">About Us</h1>
         <p className="text-gray-600">
-            Welcome to our CraveExpress! We are a team of food enthusiasts who love to
+            Welcome to our Easymeals! We are a team of food enthusiasts who love to
             share our passion for delicious and healthy food. Our goal is to provide
             you with a convenient way to explore and order your favorite meals from
             various restaurants in your area.
